@@ -1,0 +1,43 @@
+# Daily Report Data for June 11, 2025
+report_date: "2025-06-11"
+
+# Section for all build information
+build_details:
+  - platform: "Web"
+    build_id: "2.1.5-b345"
+    cdx: "cdx-web-v5.2"
+    ndx: "ndx-web-v3.1"
+    sdx: "sdx-global-v1.9"
+  - platform: "Desktop"
+    build_id: "1.9.2-b821"
+    cdx: "cdx-desk-v4.8"
+    ndx: "ndx-desk-v3.0"
+    sdx: "sdx-global-v1.9"
+  - platform: "Mac"
+    build_id: "1.9.2-b819"
+    cdx: "cdx-mac-v4.8"
+    ndx: "ndx-mac-v3.0"
+    sdx: "sdx-global-v1.9"
+
+# Section for all bugs and tasks logged today
+work_items:
+  - id: "AZ-7812"
+    type: "Bug"
+    title: "User cannot login with special characters in password"
+    tags: "login, critical, regression"
+  - id: "AZ-7815"
+    type: "Bug"
+    title: "Submit button is misaligned on high-resolution screens"
+    tags: "ui, desktop, low-priority"
+
+# Test coverage details
+test_cov:
+  - desc: "find below: "
+    covered_tests: <a href="https://www.google.com/">Tests Covered</a>
+
+# OCV details
+ocv:
+  - count: 513
+    ocv_issues:
+      - <a href="https://www.google.com/">OCV Issue 1</a>
+      - <a href="https://www.google.com/">OCV Issue 2</a>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Report - {{ report_date }}</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        .container { max-width: 900px; margin: 20px auto; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px; padding: 40px; }
+        h1, h2, h3 { color: #333; border-bottom: 2px solid #0078d4; padding-bottom: 10px; }
+        h2 { margin-top: 40px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #e1e1e1; padding: 12px; text-align: left; vertical-align: top; }
+        th { background-color: #f2f2f2; font-weight: 600; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+        .header img { max-height: 50px; }
+        .header h1 { border-bottom: none; }
+        .bug-count { text-align: right; font-weight: bold; margin-top: -10px; margin-bottom: 20px; }
+        footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.8em; color: #888; text-align: center; }
+        .nested-table { margin-top: 10px; background-color: #fafafa; }
+        .nested-table th { background-color: #e9e9e9; }
+        .scenario-list { margin: 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            {% if logo_base64 %}
+                <img src="data:image/png;base64,{{ logo_base64 }}" alt="Application Logo">
+            {% endif %}
+            <h1>Daily Test Report: {{ report_date }}</h1>
+        </div>
+
+        <h2>Build Details</h2>
+        <table>
+            <tr>
+            <th>Platform</th>
+            <th>Build ID</th>
+            <th>CDX</th>
+            <th>NDX</th>
+            <th>SDX</th>
+        </tr>
+        {% for build in builds %}
+        <tr>
+            <td>{{ build.platform }}</td>
+            <td>{{ build.build_id }}</td>
+            <td>{{ build.cdx }}</td>
+            <td>{{ build.ndx }}</td>
+            <td>{{ build.sdx }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+
+        <h2>Bugs Logged: {{ bug_count }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:15%;">Bug ID</th>
+                    <th>Title</th>
+                    <th style="width:25%;">Tags</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bug in bugs %}
+                <tr>
+                    <td>{{ bug.id }}</td>
+                    <td>{{ bug.title }}</td>
+                    <td>{{ bug.tags }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" style="text-align:center; color: #555;">No bugs were logged today.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Test Coverage</h2>
+        {% for test in test_coverage%}
+        <p>{{ test.desc }}</p>
+        <ul>
+            <li>{{ test.covered_tests }}</li>
+        </ul>
+        {% endfor %}
+        <!-- <h2>Tasks Completed Today</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:15%;">Task ID</th>
+                    <th style="width:20%;">Type</th>
+                    <th>Details</th>
+                    <th style="width:25%;">Tags</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    {% if task.format == 'detailed_table' %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.type }}</td>
+                        <td colspan="2">
+                            <p style="margin:0; font-weight: bold;">{{ task.title }}</p>
+                             <table class="nested-table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 30%;">Test Area</th>
+                                    <th>Scenarios Verified</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ task.details.testarea }}</td>
+                                    <td>
+                                        <ul class="scenario-list">
+                                        {% for scenario in task.details.scenarios %}
+                                            <li>{{ scenario }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.type }}</td>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.tags }}</td>
+                    </tr>
+                    {% endif %}
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align:center; color: #555;">No tasks were completed today.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> -->
+
+        <!-- Additional Tasks Info -->
+
+        {% for task in tasks %}
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.desc }}</p>
+            <table class="nested-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Test Area</th>
+                        <th>Scenarios Verified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ task.details.testarea }}</td>
+                        <td>
+                            <ul class="scenario-list">
+                            {% for scenario in task.details.scenarios %}
+                                <li>{{ scenario }}</li>
+                            {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+        
+        <h2>OCV Details</h2>
+        {% for info in ocv %}
+        <p>Todays count is {{ info.count }}</p>
+        <p>Issues Covered: </p>
+        {% for issue in info.ocv_issues %}
+        <ul>
+            <li>{{ issue }}</li>
+        </ul>
+        {% endfor %}
+        {% endfor %}
+
+        <footer>
+            <p>This report was automatically generated on {{ report_date }}.</p>
+            <p>&copy; 2025 Your Application Team. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

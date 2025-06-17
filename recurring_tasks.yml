@@ -1,0 +1,38 @@
+# This is the master list of special, recurring tasks for the team.
+# The report generation script will ask which of these to include.
+
+recurring_tasks:
+  - id: "cust_temp"
+    type: "QA Task"
+    title: "Custom Template Testing"
+    desc: "Find all details below"
+    # This 'format' key is how the template will identify this task as special
+    format: "detailed_table"
+    # This 'details' object holds the content for our custom table
+    details:
+      testarea: "Custom Template Testing"
+      scenarios:
+        - "Temp1 test"
+        - "Temp2 test"
+
+  - id: "Localization"
+    type: "QA Task"
+    title: "Localization Testing"
+    desc: "Find all details below"
+    format: "detailed_table"
+    details:
+      testarea: "Localization Testing"
+      scenarios:
+        - "Language1 test on localalized build"
+        - "Language2 test on localalized build"
+
+  - id: "Language"
+    type: "QA Task"
+    title: "Language Testing"
+    desc: "Find all details below"
+    format: "detailed_table"
+    details:
+      testarea: "Language Testing"
+      scenarios:
+        - "Language1 test on normal build"
+        - "Language2 test on normal build"
